@@ -9,7 +9,8 @@ const LOCAL_OBJ = "オブジェクトで設定したオブジェクトメソッ�
 //吹き出しの番号を指定するID
 let talkID = 0;
 //グローバル変数(定数)
-const whatBobSays = GLOBAL;
+// 変数
+var whatBobSays = GLOBAL;
 
 //起動時に呼ばれる
 window.onload = function () {
@@ -20,6 +21,8 @@ window.onload = function () {
 //talkIDに応じてBobの発する言葉を決める関数
 function bob() {
   const whatBobSays = LOCAL_BOB;
+  // 新し定数に定数whatBobSaysを代入宣言
+  const _whatBobSays = whatBobSays;
   for (let talkID = 0; talkID <= 5; talkID++) {
 
     const whatBobSays = LOCAL_FOR; //ローカル変数(定数)
@@ -27,30 +30,29 @@ function bob() {
     switch (talkID) {
       case 0: //itch文の`case`の中で、ID2の文字列が格納された変数`whatBobSays`を宣言して使用する
         {
-          const whatBobSays = "グローバル変数(定数)「whatBobSays」で連絡!！";
+          const whatBobSays = LOCAL_SWITCH; // 上記に宣言しているものを代入できる
           setDialog(whatBobSays, talkID);
         }
         break;
 
       case 1: //ID1の文字列が既に格納され関数`bob()`のローカル変数`whatBobSays`を使用する
         {
-          // const whatBobSays = whatBobSays;
-          // setDialog(whatBobSays, talkID);
+          setDialog(_whatBobSays, talkID);
         }
         break;
 
       case 2: //ID2の文字列が既に格納されたグローバル変数`whatBobSays`を使用する
         {
           // const whatBobSays = whatBobSays;
-          // setDialog(whatBobSays, talkID);
+          setDialog(this.whatBobSays, talkID);
         }
         break;
 
       case 3: //関数`bob()`の中で関数`whatBobSays`を作成し、その中で宣言したものを利用する
-        {
-          let whatBobSays = function () {
-            const a = LOCAL_NEST_FUNCTION;
-            return a;
+        { // 定数
+          const whatBobSays = function () {
+            const bobMsg = LOCAL_NEST_FUNCTION;
+            return bobMsg;
           };
           setDialog(whatBobSays(), talkID);
         }
@@ -61,10 +63,11 @@ function bob() {
         break;
 
       default: //オブジェクトを作成し、ID5の文字列を返すオブジェクトメソッド`whatBobSays`を使用する
-        let obj = {
+        // 定数
+        const obj = {
           whatBobSays: function () {
-            const a = LOCAL_OBJ;
-            return a;
+            const bobMsg = LOCAL_OBJ;
+            return bobMsg;
           }
         };
         setDialog(obj.whatBobSays(), talkID);
